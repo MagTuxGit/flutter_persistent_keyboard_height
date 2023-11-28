@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 /// ```
 class PersistentKeyboardHeight extends InheritedWidget {
   const PersistentKeyboardHeight({
-    required Widget child,
+    required super.child,
     required this.keyboardHeight,
-    Key? key,
-  }) : super(child: child, key: key);
+    super.key,
+  });
 
   /// The current height of the keyboard.
   final double keyboardHeight;

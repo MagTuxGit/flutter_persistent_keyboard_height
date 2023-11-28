@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:keyboard_utils/keyboard_listener.dart' as keyboard_utils;
-import 'package:keyboard_utils/keyboard_utils.dart';
+import 'package:flutter/material.dart' hide KeyboardListener;
+import 'package:keyboard_utils_fork/keyboard_listener.dart';
+import 'package:keyboard_utils_fork/keyboard_utils.dart';
 
 import 'i_persistent_keyboard_height_storage_provider.dart';
 import 'persistent_keyboard_height.dart';
@@ -9,21 +9,18 @@ import 'shared_preferences_persistent_keyboard_height_storage_provider.dart';
 class PersistentKeyboardHeightProvider extends StatefulWidget {
   const PersistentKeyboardHeightProvider({
     required this.child,
-    this.storageProvider =
-        const SharedPreferencesPersistentKeyboardSizeStorageProvider(),
-    Key? key,
-  }) : super(key: key);
+    this.storageProvider = const SharedPreferencesPersistentKeyboardSizeStorageProvider(),
+    super.key,
+  });
 
   final Widget child;
   final IPersistentKeyboardHeightStorageProvider storageProvider;
 
   @override
-  _PersistentKeyboardHeightProviderState createState() =>
-      _PersistentKeyboardHeightProviderState();
+  _PersistentKeyboardHeightProviderState createState() => _PersistentKeyboardHeightProviderState();
 }
 
-class _PersistentKeyboardHeightProviderState
-    extends State<PersistentKeyboardHeightProvider> {
+class _PersistentKeyboardHeightProviderState extends State<PersistentKeyboardHeightProvider> {
   final KeyboardUtils _keyboardUtils = KeyboardUtils();
 
   /// The ID we get when adding a listener to [_keyboardUtils] via
@@ -52,7 +49,7 @@ class _PersistentKeyboardHeightProviderState
     });
 
     _keyboardUtilsListenerId = _keyboardUtils.add(
-      listener: keyboard_utils.KeyboardListener(
+      listener: KeyboardListener(
         willShowKeyboard: _onWillShowKeyboard,
       ),
     );
@@ -103,8 +100,7 @@ class _PersistentKeyboardHeightProviderState
     // https://stackoverflow.com/a/49271649/9714875
     _bottomOffset = MediaQuery.of(context).viewInsets.bottom;
 
-    if (_keyboardHeightFromKeyboardUtils != 0 &&
-        _bottomOffset != _keyboardHeight) {
+    if (_keyboardHeightFromKeyboardUtils != 0 && _bottomOffset != _keyboardHeight) {
       _maybeSetKeyboardHeight(
         bottomOffset: _bottomOffset,
         keyboardHeightFromKeyboardUtils: _keyboardHeightFromKeyboardUtils,

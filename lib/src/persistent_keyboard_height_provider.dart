@@ -9,7 +9,8 @@ import 'shared_preferences_persistent_keyboard_height_storage_provider.dart';
 class PersistentKeyboardHeightProvider extends StatefulWidget {
   const PersistentKeyboardHeightProvider({
     required this.child,
-    this.storageProvider = const SharedPreferencesPersistentKeyboardSizeStorageProvider(),
+    this.storageProvider =
+        const SharedPreferencesPersistentKeyboardSizeStorageProvider(),
     super.key,
   });
 
@@ -17,10 +18,12 @@ class PersistentKeyboardHeightProvider extends StatefulWidget {
   final IPersistentKeyboardHeightStorageProvider storageProvider;
 
   @override
-  _PersistentKeyboardHeightProviderState createState() => _PersistentKeyboardHeightProviderState();
+  State<PersistentKeyboardHeightProvider> createState() =>
+      _PersistentKeyboardHeightProviderState();
 }
 
-class _PersistentKeyboardHeightProviderState extends State<PersistentKeyboardHeightProvider> {
+class _PersistentKeyboardHeightProviderState
+    extends State<PersistentKeyboardHeightProvider> {
   final KeyboardUtils _keyboardUtils = KeyboardUtils();
 
   /// The ID we get when adding a listener to [_keyboardUtils] via
@@ -100,7 +103,8 @@ class _PersistentKeyboardHeightProviderState extends State<PersistentKeyboardHei
     // https://stackoverflow.com/a/49271649/9714875
     _bottomOffset = MediaQuery.of(context).viewInsets.bottom;
 
-    if (_keyboardHeightFromKeyboardUtils != 0 && _bottomOffset != _keyboardHeight) {
+    if (_keyboardHeightFromKeyboardUtils != 0 &&
+        _bottomOffset != _keyboardHeight) {
       _maybeSetKeyboardHeight(
         bottomOffset: _bottomOffset,
         keyboardHeightFromKeyboardUtils: _keyboardHeightFromKeyboardUtils,
